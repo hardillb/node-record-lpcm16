@@ -24,7 +24,7 @@ exports.start = function (options) {
   var cmd = 'rec';
   var cmdArgs = [
     '-q',                     // show no progress
-    '-r', '16000',            // sample rate
+    '-r', options.sampleRate,            // sample rate
     '-c', '1',                // channels
     '-e', 'signed-integer',   // sample encoding
     '-b', '16',               // precision (bits)
@@ -34,6 +34,10 @@ exports.start = function (options) {
     'silence', '1','0.1', options.threshold + '%',
                '1','1.0', options.threshold + '%'
   ];
+  
+  if (options.pad) {
+      cmdArgs.push('pad', '0', options.pad);
+  }
 
   if (options.verbose)
     console.log('Recording with sample rate', options.sampleRate + '...');
